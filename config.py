@@ -5,7 +5,7 @@ class Config:
     General configuration parent Class
     '''
     SECRET_KEY = os.environ.get('SECRET_KEY')
-    RANDOM_JOKE_URL = 'http://quotes.stormconsultancy.co.uk/random.json'
+    RANDOM_QUOTE_URL = 'http://quotes.stormconsultancy.co.uk/random.json'
 
     # DATABASE configuration
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:Access@localhost/blog'
