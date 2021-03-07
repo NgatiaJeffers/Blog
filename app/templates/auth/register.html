@@ -1,7 +1,7 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block styles %}
-<link rel="stylesheet" href="{{url_for('static', filename = 'css/login.css')}}">
+{% block head %}
+<link rel="stylesheet" href="/static/css/auth.css">
 <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -24,22 +24,13 @@
                 <div class="col-md-7">
                     <div class="card-body">
                         <div class="brand-wrapper">
-                            <img src="/static/img/jefflogo.svg" alt="logo" class="logo">
+                            <a href="/">
+                                <img src="/static/img/jefflogo.svg" alt="logo" class="logo">
+                            </a>
                         </div>
                         <p class="login-card-description">Sign into your account</p>
                         <form action="#!">
-                            {{ form.hidden_tag() }}
-                            {{ wtf.form_field(form.username) }}
-                            {{ wtf.form_field(form.email) }}
-                            {{ wtf.form_field(form.password) }}
-                            {% with messages = get_flashed_messages(with_categories=true) %}
-                                {% if messages %}
-                                    {% for category, message in messages %}
-                                        <div class="alert alert-{{ category }}"> {{ message }}</div>
-                                    {% endfor %}
-                                {% endif %}
-                            {% endwith %}
-                            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+                            {{wtf.quick_form(form)}}
                         </form>
                         <a href="#!" class="forgot-password-link">Forgot password?</a>
                         <p class="login-card-footer-text">Don't have an account? <a

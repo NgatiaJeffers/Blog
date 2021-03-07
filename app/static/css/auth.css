@@ -4,7 +4,7 @@
 body {
   font-family: "Poppins", Gotham Rounded, sans-serif;
   background-color: #d0d0ce;
-  min-height: 100vh;
+  /* min-height: 0vh; */
 }
 
 .brand-wrapper {
@@ -123,3 +123,7 @@ body {
 }
 
 /*# sourceMappingURL=login.css.map */
+
+.form {
+  height: 400px;
+}

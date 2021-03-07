@@ -11,6 +11,25 @@ body {
     background: #e6e6ff;
 }
 
-.authenticate {
-    margin-top: 5em;
+/* navigation bar */
+#scanfcode {
+    border-radius: 0px;
+    background: #fff;
+    padding: 10px;
+    font-size: 17px;
+}
+
+/* logo or main heading */
+#logo {
+    font-size: 20px;
+    font-weight: bolder;
+    color: #00004d;
+    letter-spacing: 2px;
+}
+
+/* navigation links*/
+#link a {
+    color: #01325d;
+    margin: 0 20px 0 10px;
+    letter-spacing: 1.5px;
 }

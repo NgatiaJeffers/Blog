@@ -8,7 +8,7 @@ from flask_mail import Mail
 # Initializing Login manager
 login_manager = LoginManager()
 login_manager.session_protection = 'storng'
-login_manager.login_view = 'auth_login'
+login_manager.login_view = 'auth.login'
 
 # Initializing Extensions
 bootstrap = Bootstrap()
@@ -26,6 +26,7 @@ def create_app(config_name):
     bootstrap.init_app(app)
     db.init_app(app)
     mail.init_app(app)
+    login_manager.init_app(app)
 
     # Registering the BLUEPRINT
     from .main import main as main_blueprint
@@ -33,5 +34,8 @@ def create_app(config_name):
 
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint, url_prefix = '/auth')
+
+    from .request import configure_request
+    configure_request(app)
 
     return app

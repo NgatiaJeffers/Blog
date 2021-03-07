@@ -1,7 +1,7 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block styles %}
-<link rel="stylesheet" href="{{url_for('static', filename = 'css/login.css')}}">
+{% block head %}
+<link rel="stylesheet" href="/static/css/auth.css">
 <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -19,12 +19,16 @@
         <div class="card login-card">
             <div class="row no-gutters">
                 <div class="col-md-5">
-                    <img src="/static/img/login.jpg" alt="login" class="login-card-img">
+                    <a href="/">
+                        <img src="/static/img/login.jpg" alt="login" class="login-card-img">
+                    </a>
                 </div>
                 <div class="col-md-7">
                     <div class="card-body">
                         <div class="brand-wrapper">
-                            <img src="/static/img/jefflogo.svg" alt="logo" class="logo">
+                            <a href="/">
+                                <img src="/static/img/jefflogo.svg" alt="logo" class="logo">
+                            </a>
                         </div>
                         <p class="login-card-description">Sign into your account</p>
                         {% for message in get_flashed_messages() %}

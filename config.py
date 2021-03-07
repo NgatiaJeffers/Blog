@@ -41,7 +41,7 @@ class DevConfig(Config):
     Args:
         Config: The parent configuration class with General Configuration Settings
     '''
-    pass
+    
 
 class TestConfig(Config):
     '''

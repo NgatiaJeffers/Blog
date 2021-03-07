@@ -1,5 +1,3 @@
-from enum import unique
-from sqlalchemy.orm import backref
 from . import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -41,7 +39,7 @@ class User(UserMixin, db.Model):
     comment = db.relationship('Comment', backref = 'user', lazy = 'dynamic')
 
     @property
-    def password(self):
+    def password(s):
         '''
         Raises an attribute error when we try to access the password
         '''
@@ -58,9 +56,9 @@ class User(UserMixin, db.Model):
         '''
         Defines how the user object will be constructed when the class is called
         '''
-        return f'{self.username}'
+        return f'User{self.username}'
 
-class Blog(db.Model):
+class Blog(UserMixin, db.Model):
 
     __tablename__ = 'blogs'
 
