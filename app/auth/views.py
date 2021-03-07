@@ -17,7 +17,7 @@ def login():
 
         flash('Invalid Username or Password')
 
-    title = 'Pitch Perfect'
+    title = 'Login || Dev Blog'
     return render_template('auth/login.html', login_form = login_form, title = title)
 
 
@@ -40,5 +40,6 @@ def register():
         mail_message('Welcome to Pitch Perfect', 'email/welcome_user', user.email, user = user)
 
         return redirect(url_for('auth.login'))
-        title = 'New Account'
-    return render_template('auth/register.html', registration_form = form)
+
+    title = 'New Account || Dev Blog'
+    return render_template('auth/register.html', form = form, title = title)
