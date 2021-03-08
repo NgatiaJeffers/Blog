@@ -3,7 +3,7 @@ from . import db, app
 from flask import render_template, flash, request, url_for, abort, redirect
 from ..requests import get_random_quote
 from ..models import Blog, Comment
-from .forms import UpdateProfile
+from .forms import BlogForm, UpdateProfile
 from flask_login import current_user, login_required
 from PIL import Image
 import secrets
@@ -55,3 +55,14 @@ def profile():
 @main.route('/new_blog', methods = ['GET', 'POST'])
 @login_required
 def new_blog():
+    form = BlogForm()
+    if form.validate_on_submit():
+        blog = Blog(title = form.title.data, body = form.body.data, author = current_user)
+        blog.save()
+
+        flash('Blog posted 😄.')
+
+        return redirect(url_for('main.index'))
+    title = 'Blog || Dev Blog'
+    return render_template('blog/new_blog.html', title = title, form = form)
+
