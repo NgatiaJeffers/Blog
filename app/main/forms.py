@@ -10,7 +10,7 @@ from ..models import Comment, User
 class UpdateProfile(FlaskForm):
     username = StringField('Username', validators = [Required(), Length(min = 2, max = 20)])
     email = StringField('Email', validators = [Required(), Email()])
-    pic = FileField('Update Profile Picture', validators = [FileAllowed(['png', 'jpg', 'jpeg'])])
+    picture = FileField('Update Profile Picture', validators = [FileAllowed(['png', 'jpg', 'jpeg'])])
     submit = SubmitField('Update')
 
     def validate_username(self, username):

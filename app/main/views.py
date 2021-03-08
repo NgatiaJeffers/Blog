@@ -1,8 +1,13 @@
 from . import main
-from flask import render_template
+from . import db, app
+from flask import render_template, flash, request, url_for, abort, redirect
 from ..requests import get_random_quote
 from ..models import Blog, Comment
+from .forms import UpdateProfile
 from flask_login import current_user, login_required
+from PIL import Image
+import secrets
+import os
 
 @main.route('/')
 def index():
@@ -10,3 +15,43 @@ def index():
     blog = Blog.query.all()
     return render_template('index.html', quotes = quotes, blog = blog, user = current_user)
 
+def save_picture(form_picture):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/photos', picture_fn)
+
+    output_size = (125, 125)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+
+    return picture_fn
+
+@main.route('/profile', methods = ['GET', 'POST'])
+@login_required
+def profile():
+    form = UpdateProfile()
+    if form.validate_on_submit():
+        if form.picture.data:
+            picture_file = save_picture(form.picture.data)
+            current_user.image_file = picture_file
+        current_user = form.username.data
+        current_user.email = form.email.data
+        db.session.commit()
+
+        flash('Account Updated Succefully. Yeaah!!')
+
+        return redirect(url_for('main.profile'))
+
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+    image_file = url_for('static', filename = 'photos/' + current_user.image_file)
+
+    title = 'Profile || Dev Blog'
+    return render_template('profile/profile.html', title = title, image_file = image_file, form = form)
+
+@main.route('/new_blog', methods = ['GET', 'POST'])
+@login_required
+def new_blog():
