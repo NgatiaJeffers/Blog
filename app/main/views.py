@@ -39,9 +39,9 @@ def profile():
     if form.validate_on_submit():
         if form.picture.data:
             picture_file = save_picture(form.picture.data)
-            current_user.image_file = picture_file
-        current_user = form.username.data
-        current_user.email = form.email.data
+            user.image_file = picture_file
+        user.username = form.username.data
+        user.email = form.email.data
         db.session.commit()
 
         flash('Account Updated Succefully. Yeaah!!')
@@ -49,9 +49,9 @@ def profile():
         return redirect(url_for('main.profile'))
 
     elif request.method == 'GET':
-        form.username.data = current_user.username
-        form.email.data = current_user.email
-    image_file = url_for('static', filename = 'photos/' + current_user.image_file)
+        form.username.data = user.username
+        form.email.data = user.email
+    image_file = url_for('static', filename = 'photos/' + user.image_file)
 
     title = 'Profile || Dev Blog'
     return render_template('profile/profile.html', title = title, image_file = image_file, form = form)
@@ -71,8 +71,8 @@ def blog(blog_id):
 def new_blog():
     form = BlogForm()
     if form.validate_on_submit():
-        blog = Blog(title = form.title.data, body = form.body.data, author = current_user)
-        blog.save()
+        blog = Blog(title = form.title.data, body = form.body.data, user = current_user)
+        blog.save_blog()
 
         flash('Blog posted 😄.')
 
@@ -84,7 +84,7 @@ def new_blog():
 @login_required
 def update_blog(blog_id):
     blog = Blog.query.get_or_404(blog_id)
-    if blog.author  != current_user:
+    if blog.user  != current_user:
 
         abort(403)
     form = BlogForm()
