@@ -11,7 +11,7 @@ def load_user(user_id):
 
 class Quote:
     '''
-    Class That defines the blog oblect
+    Class That defines the quote object
     '''
 
     def __init__(self, id, author, quote):

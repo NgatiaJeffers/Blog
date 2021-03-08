@@ -12,24 +12,13 @@ body {
 }
 
 /* navigation bar */
-#scanfcode {
-    border-radius: 0px;
-    background: #fff;
-    padding: 10px;
-    font-size: 17px;
+.navbar {
+    height: 70px;
+    background-color: #31383f;
 }
 
-/* logo or main heading */
-#logo {
-    font-size: 20px;
-    font-weight: bolder;
-    color: #00004d;
-    letter-spacing: 2px;
-}
-
-/* navigation links*/
-#link a {
-    color: #01325d;
-    margin: 0 20px 0 10px;
-    letter-spacing: 1.5px;
+.navbar-brand.h1 {
+    color: #fedd89;
+    font-size: 2em;
+    margin-left: .8em;
 }
