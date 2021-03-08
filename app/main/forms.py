@@ -36,7 +36,7 @@ class ResetForm(FlaskForm):
 
 class ResetPassword(FlaskForm):
     password = PasswordField('Password', validators = [Required()])
-    confirm_password = PasswordField('Confirm Password', validators = [Required(), EqualTo()])
+    confirm_password = PasswordField('Confirm Password', validators = [Required(), EqualTo('Password')])
     submit = SubmitField('Reset Password')
 
 class BlogForm(FlaskForm):

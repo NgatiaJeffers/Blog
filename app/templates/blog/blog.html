@@ -1,0 +1,19 @@
+
+
+{% macro displayBlog(blog) %}
+
+<div class="gtco-testimonials">
+    {% for blog in blog %}
+    <div>
+        <div class="card text-center">
+            <h3>{{ blog.user_id }}</h3>
+            <div class="card-body">
+                <h5>{{ blog.title }}</h5>
+                <p class="card-text">{{ blog.body }} </p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endmacro %}

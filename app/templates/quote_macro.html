@@ -2,7 +2,11 @@
 
 {% macro displayQuote(quotes) %}
 <div class="row">
-    <div class="col-md-12 mx-auto bq">
+    <div class="col-md-6 bq">
+        <img src="{{url_for('static', filename = 'img/dance.svg')}}" alt="" srcset="" height="300">
+    </div>
+
+    <div class="col-md-6 mx-auto bq">
         <blockquote class="blockquote blockquote-custom p-5 shadow rounded">
             <div class="blockquote-custom-icon shadow-sm"><i class="fa fa-quote-left text-white"></i></div>
             <p class="mb-0 mt-2 font-italic">{{ quotes.quote }}.</p>
@@ -19,7 +23,7 @@
     .bq {
         display: flex;
         flex-wrap: wrap;
-        margin-top: 1em;
+        margin-top: .8em;
         justify-content: space-around;
         padding-top: 4.7em;
 
