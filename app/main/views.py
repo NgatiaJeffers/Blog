@@ -52,6 +52,16 @@ def profile():
     title = 'Profile || Dev Blog'
     return render_template('profile/profile.html', title = title, image_file = image_file, form = form)
 
+@main.route('/blog/<int:blog_id>')
+@login_required
+def blog(blog_id):
+    comments = Comment.query.filter_by(blog_id = id).all()
+    title = 'Comments'
+    blog = Blog.query.get_or_404(blog_id)
+
+    title = 'Blog || Dev Blog'
+    return render_template('blog/blog.html', title = title, blog = blog, comments = comments)
+
 @main.route('/new_blog', methods = ['GET', 'POST'])
 @login_required
 def new_blog():
