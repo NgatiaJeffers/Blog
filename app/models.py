@@ -32,9 +32,8 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer,primary_key = True)
     username = db.Column(db.String(255),index = True, unique = True)
     email = db.Column(db.String(255), unique = True, index = True)
-    bio = db.Column(db.String(255))
-    profile_pic_path = db.Column(db.String())
     password_hash = db.Column(db.String(155))
+    image_file = db.Column(db.String())
     blog = db.relationship('Blog', backref = 'user', lazy = 'dynamic')
     comment = db.relationship('Comment', backref = 'user', lazy = 'dynamic')
 
@@ -63,10 +62,8 @@ class Blog(UserMixin, db.Model):
     __tablename__ = 'blogs'
 
     id  = db.Column(db.Integer, primary_key = True)
-    category = db.Column(db.String(255))
-    blog_title = db.Column(db.String)
-    blog_body = db.Column(db.String)
-    postedBy = db.Column(db.String)
+    title = db.Column(db.String)
+    body = db.Column(db.String)
     postedDate = db.Column(db.DateTime, default = datetime.now())
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     blog = db.relationship('Comment', backref = 'user_blog', lazy = 'dynamic')
@@ -75,14 +72,15 @@ class Blog(UserMixin, db.Model):
         db.session.add(self)
         db.session.commit()
 
+    def delete_blog(self):
+        db.session.delete(self)
+        db.session.commit()
 class Comment(db.Model):
 
     __tablename__ = 'comments'
 
     id = db.Column(db.Integer, primary_key = True)
-    title = db.Column(db.String)
     comment = db.Column(db.String)
-    postedBy = db.Column(db.String)
     postedDate = db.Column(db.DateTime, default = datetime.now())
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     blog_id = db.Column(db.Integer, db.ForeignKey('blogs.id'))
@@ -98,3 +96,7 @@ class Comment(db.Model):
         '''
         comments = Comment.query.filter_by(blog_id = id)
         return comments
+
+    def delete_comment(self):
+        db.session.delete(self)
+        db.session.commit()

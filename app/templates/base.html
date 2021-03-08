@@ -21,11 +21,10 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-light">
-        <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1">Dev Blog</span>
-        </div>
-    </nav>
+    {% block navbar %}
+    {% include 'navbar.html' %}
+    {% endblock %}
+
 
     <div class="container">
         {% block content %}

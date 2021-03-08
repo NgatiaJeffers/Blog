@@ -22,3 +22,8 @@ body {
     font-size: 2em;
     margin-left: .8em;
 }
+
+.navbar-item {
+    color: #fedd89;
+    font-size: 1em;
+}
