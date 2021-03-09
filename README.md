@@ -27,16 +27,16 @@ them. blog also has random quotes that inspire the users.
 
 ## Technology used
 
-~ Visual Studio Code
-~ Github for storage
-~ Heroku for hosting
-~ HTML5, CSS3, Boostrap
-~ And Coffee for debugging 😃
+- Visual Studio Code
+- Github for storage
+- Heroku for hosting
+- HTML5, CSS3, Boostrap
+- And Coffee for debugging 😃
 
 #### Installation
 
-~ Pip Install -r requirements.txt
-~ Flask Aplication ft Python
+- Pip Install -r requirements.txt
+- Flask Aplication ft Python
 
 #### Setup
 
@@ -49,13 +49,13 @@ them. blog also has random quotes that inspire the users.
 
 ## Contribution
 
-~ Fork the repo / Clone the repo
-~ Create a branch, a desired name (`git checkout iwanttoimprove`)
-~ Git branch to your branch (`git branch iwattoimprove`)
-~ Make the appropriate changes or improvement
-~ Git commit the changes (`git commit -m 'the chages'`)
-~ Git push to your branch (`git push origin iwanttoimprove`)
-~ Done!
+- Fork the repo / Clone the repo
+- Create a branch, a desired name (`git checkout iwanttoimprove`)
+- Git branch to your branch (`git branch iwattoimprove`)
+- Make the appropriate changes or improvement
+- Git commit the changes (`git commit -m 'the chages'`)
+- Git push to your branch (`git push origin iwanttoimprove`)
+- Done!
 
 ## Bugs
 
