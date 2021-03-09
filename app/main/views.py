@@ -84,7 +84,7 @@ def new_blog():
 @login_required
 def update_blog(blog_id):
     blog = Blog.query.get_or_404(blog_id)
-    if blog.current_user  != current_user:
+    if blog.user  != current_user:
 
         abort(403)
     form = BlogForm()
@@ -101,7 +101,32 @@ def update_blog(blog_id):
 
     elif request.method == 'GET':
         form.title.data = blog.title
-        form.boby.data = blog.body
+        form.body.data = blog.body
 
     title = 'Update || Dev Blog'
     return render_template('blog/new_blog.html', title = title, form = form)
+
+@main.route('/comment/<blog_id>', methods=['POST', 'GET'])
+@login_required
+def comment(blog_id):
+    comment = request.form.get('new comment')
+    
+    new_comment = Comment(comment = comment, user_id = current_user._get_current_object().id, blog_id = blog_id)
+    
+    new_comment.save_comment()
+
+    return redirect(url_for('main.blog', blog_id = blog_id))
+
+
+@main.route("/blog/<int:blog_id>/delete", methods=['POST'])
+@login_required
+def delete_blog(blog_id):
+    blog = Blog.query.get_or_404(blog_id)
+    if blog.user != current_user:
+        abort(403)
+
+    blog.delete_blog()
+
+    flash('Your post has been deleted!', 'success')
+
+    return redirect(url_for('main.index'))

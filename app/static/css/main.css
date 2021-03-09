@@ -23,7 +23,12 @@ body {
     margin-left: 0.8em;
 }
 
-.navbar-nav.nav-item.nav-link {
+.navbar-brand.h1:hover {
+    color: #fedd89;
+    text-decoration: underline;
+}
+
+.nav-item.na-link{
     color: #fedd89;
     font-size: 1em;
 }

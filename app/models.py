@@ -37,6 +37,14 @@ class User(UserMixin, db.Model):
     blog = db.relationship('Blog', backref = 'user', lazy = 'dynamic')
     comment = db.relationship('Comment', backref = 'user', lazy = 'dynamic')
 
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
     @property
     def password(s):
         '''
@@ -90,11 +98,11 @@ class Comment(db.Model):
         db.session.commit()
 
     @classmethod
-    def get_comments(cls, id):
+    def get_comments(cls, blog_id):
         '''
         Takes in blo and retrieves all comments for that blog
         '''
-        comments = Comment.query.filter_by(blog_id = id)
+        comments = Comment.query.filter_by(blog_id = blog_id).all()
         return comments
 
     def delete_comment(self):
