@@ -30,7 +30,7 @@ class BlogTest(unittest.TestCase):
         self.new_blog.save_blog()
         self.assertTrue(len(Blog.query.all() > 0))
 
-    def test_get_comment_by_id(self):
-        self.new_comment.save_comment()
-        got_comments = Comment.get_comments(1234)
-        self.asserTrue(len(got_comments) == 1)
+    def test_get_blog_by_id(self):
+        self.new_blog.save_blog()
+        got_blogs = Blog.get_blogs(1234)
+        self.asserTrue(len(got_blogs) == 1)
