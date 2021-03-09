@@ -1,14 +1,35 @@
 {% extends 'base.html'%}
 {% from 'quote_macro.html' import displayQuote %}
-{% from 'blog/blog.html' import displayBlog %}
 
 {% block content %}
 <div class="container">
     {{ displayQuote(quotes) }}
 </div>
 
-<div class="container-fluid">
-    {{ displayBlog(blogs) }}
-</div>
+<section class="section-primary t-bordered">
+    <div class="container">
+        <div class="row blog-card blog-card--col-three">
+            {% for blog in blog %}
+            <div class="col-md-4 blog-card-col">
+                <div class="card-inner">
+                    <div class="testimonial-image" itemprop="image">
+                        <img width="180" height="180" src="{{ url_for('static', filename='photos/' + blog.user.image_file) }}">
+                    </div>
+                    <div class="card-content">
+                        <p>
+                            {{ blog.body }}
+                        </p>
+                    </div>
+                    <div class="meta">
+                        <strong class="card-name" itemprop="name">{{ blog.user.username }}</strong>
+                        <span class="title" itemprop="jobTitle">{{ blog.postedDate.strftime('%Y-%m-%d') }}</span> – <a class="testimonial-link" href="{{ url_for('main.blog', blog_id = blog.id) }}" >{{ blog.title }}</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 
 {% endblock %}
+

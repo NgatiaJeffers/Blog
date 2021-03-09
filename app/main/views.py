@@ -1,7 +1,7 @@
 import os
 import secrets
 
-import app
+from .. import app
 from PIL import Image
 from . import main
 from .. import db
@@ -39,9 +39,9 @@ def profile():
     if form.validate_on_submit():
         if form.picture.data:
             picture_file = save_picture(form.picture.data)
-            user.image_file = picture_file
-        user.username = form.username.data
-        user.email = form.email.data
+            current_user.image_file = picture_file
+        current_user.username = form.username.data
+        current_user.email = form.email.data
         db.session.commit()
 
         flash('Account Updated Succefully. Yeaah!!')
@@ -49,9 +49,9 @@ def profile():
         return redirect(url_for('main.profile'))
 
     elif request.method == 'GET':
-        form.username.data = user.username
-        form.email.data = user.email
-    image_file = url_for('static', filename = 'photos/' + user.image_file)
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+    image_file = url_for('static', filename = 'photos/' + current_user.image_file)
 
     title = 'Profile || Dev Blog'
     return render_template('profile/profile.html', title = title, image_file = image_file, form = form)
@@ -59,12 +59,12 @@ def profile():
 @main.route('/blog/<int:blog_id>')
 @login_required
 def blog(blog_id):
-    comments = Comment.query.filter_by(blog_id = id).all()
+    comments = Comment.query.filter_by(blog_id = blog_id).all()
     heading = 'comments'
     blog = Blog.query.get_or_404(blog_id)
 
     title = 'Blog || Dev Blog'
-    return render_template('blog/blog.html', title = blog.title, blog = blog, comments = comments, heading = heading)
+    return render_template('blog/blog.html', title = title, blog = blog, comments = comments, heading = heading)
 
 @main.route('/new_blog', methods = ['GET', 'POST'])
 @login_required
@@ -84,7 +84,7 @@ def new_blog():
 @login_required
 def update_blog(blog_id):
     blog = Blog.query.get_or_404(blog_id)
-    if blog.user  != current_user:
+    if blog.current_user  != current_user:
 
         abort(403)
     form = BlogForm()
@@ -97,7 +97,7 @@ def update_blog(blog_id):
 
         flash('Blog Updated 😄.')
 
-        return redirect(url_for('main.blog', blog_id = id))
+        return redirect(url_for('main.blog', blog_id = blog_id))
 
     elif request.method == 'GET':
         form.title.data = blog.title

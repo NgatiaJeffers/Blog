@@ -1,100 +1,90 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% from 'blog/comment.html' import displayComments as commentDisplay %}
+{% block content %}
+<article class="media content-section">
+    <img class="rounded-circle article-img"
+        src="{{ url_for('static', filename='profile_pic/' + blog.user.image_file) }}">
+    <div class="media-body">
+        <div class="article-metadata">
+            <a class="mr-2" href="#">{{ blog.user.username }}</a>
+            <small class="text-muted">{{ blog.postedDate.strftime('%d-%m-%Y') }}</small>
+            <div>
+                <button class="btn btn-info btn-sm m-1" data-target="#commentModal" data-toggle="modal" type="button">
+                    Comment
+                </button>
+                {% if blog.user == current_user %}
+                <a class="btn btn-secondary btn-sm mt-1 mb-1"
+                    href="{{ url_for('main.update_blog', blog_id = blog.id) }}">Update</a>
+                <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">
+                    Delete
+                </button>
+                {% endif %}
+            </div>
+        </div>
+        <h2 class="article-title">{{ blog.title }}</h2>
+        <p class="article-content">{{ blog.content }}</p>
+    </div>
+</article>
 
-{% macro displayBlog(blogs) %}
-<div class="blog-card">
-    <h2>Dev Blog - Say Something.</h2>
-    {% for blog in blogs %}
-    <div class="card text-center">
-        <img class="card-img-top" src="{{ url_for('static', filename ='photos/' + blog.user.image_file) }}"
-            alt="No Image">
-        <div class="card-body">
-            <h5>{{ blog.title }}<br />
-                <a href="{{ url_for('main.blog', blog_id = id) }}"><span>{{ blog.author.username }} </span></a>
-            </h5>
-            <p class="card-text">{{ blog.body }} </p>
-            <span>{{blog.postedDate.strftime('%d-%m-%Y')}}</span>
+<article class="media content-section">
+    <div class="media-body">
+        <div class="article-metadata">
+            <h1>{{commentDisplay(comments)}}</h1>
         </div>
     </div>
-    {% endfor %}
+</article>
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete blog?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <form action="{{ url_for('main.delete_blog', blog_id=blog.id) }}" method="blog">
+                    <input class="btn btn-danger" type="submit" value="Delete">
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="commentModalTitle">Comment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="blog" action="{{url_for('main.comment',blog_id = blog.id)}}">
+                    <div class="form-group">
+                        <label for="title" class="col-form-label">Title:</label>
+                        <input type="text" class="form-control" id="title">
+                    </div>
+                    <div class="form-group">
+                        <label for="comment" class="col-form-label">Comment:</label>
+                        <textarea class="form-control" id="comment" name="newcomment"></textarea>
+                    </div>
 
 
-<style>
-    /* Blog Styles */
-    .blog-card {
-        position: relative;
-        margin-top: 30px;
-    }
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add Comment</button>
+                    </div>
 
-    @media (max-width: 767px) {
-        .blog-card {
-            margin-top: 20px;
-        }
-    }
-
-    .blog-card h2 {
-        font-size: 30px;
-        text-align: left;
-        color: #333333;
-        margin-bottom: 50px;
-    }
-
-    .blog-card .card {
-        background: #fff;
-        box-shadow: 0 8px 30px -7px #c9dff0;
-        margin: 0 20px;
-        padding: 0 10px;
-        border-radius: 20px;
-        border: 0;
-    }
-
-    .blog-card .card .card-img-top {
-        max-width: 100px;
-        border-radius: 50%;
-        margin: 15px auto 0;
-        box-shadow: 0 8px 20px -4px #95abbb;
-        width: 100px;
-        height: 100px;
-    }
-
-    .blog-card .card h5 {
-        color: #01b0f8;
-        font-size: 21px;
-        line-height: 1.3;
-    }
-
-    .blog-card .card h5 span {
-        font-size: 18px;
-        color: #666666;
-    }
-
-    .blog-card .card p {
-        font-size: 18px;
-        color: #555;
-        padding-bottom: 15px;
-    }
-
-    .blog-card .active {
-        opacity: 0.5;
-        transition: all 0.3s;
-    }
-
-    .blog-card .center {
-        opacity: 1;
-    }
-
-    .blog-card .center h5 {
-        font-size: 24px;
-    }
-
-    .blog-card .center h5 span {
-        font-size: 20px;
-    }
-
-    .blog-card .center .card-img-top {
-        max-width: 100%;
-        height: 120px;
-        width: 120px;
-    }
-</style>
-{% endmacro %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
