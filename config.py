@@ -8,7 +8,7 @@ class Config:
     RANDOM_QUOTE_URL = 'http://quotes.stormconsultancy.co.uk/random.json'
 
     # DATABASE configuration
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:Access@localhost/blog'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:Access@localhost/dev'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # UPLOAD IMG configuration
@@ -20,7 +20,7 @@ class Config:
     MAIL_USE_TLS = False
     MAIL_USE_SSL = True
     MAIL_USERNAME = 'jeffersongakuya@gmail.com'
-    MAIL_PASSWORD = 'jifewry4f438fshdf8898'
+    MAIL_PASSWORD = 'jajryehdwir62dfgidaktack'
 
     # SIMPLE MDE configuration
     SIMPLEMDE_JS_IIFE = True
@@ -42,7 +42,7 @@ class DevConfig(Config):
     Args:
         Config: The parent configuration class with General Configuration Settings
     '''
-    
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:Access@localhost/dev'
 
 class TestConfig(Config):
     '''
