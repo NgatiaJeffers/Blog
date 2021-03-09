@@ -40,7 +40,7 @@ them. blog also has random quotes that inspire the users.
 
 #### Setup
 
-~ Clone the repository or Fork the repo
+- Clone the repository or Fork the repo
 
 - git clone (`https://github.com/NgatiaJeffers/Blog`)
 - cd NewsHighlight
@@ -63,8 +63,8 @@ them. blog also has random quotes that inspire the users.
 
 ## Support and contact details
 
-JeffDev GitHub Acc: (`https://github.com/NgatiaJeffers`)
-JeffDev Email: `jeffersongakuya@gmail.com`
+- Jefferson GitHub Acc: (`https://github.com/NgatiaJeffers`)
+- Jefferson Email: `jeffersongakuya@gmail.com`
 
 ### License
 
